@@ -1,0 +1,11 @@
+#stroke {
+    stroke-dasharray: 980;
+    stroke-dashoffset: 0;
+    animation: moveRect 3s ease alternate infinite;
+}
+
+@keyframes moveRect {
+    to {
+        stroke-dashoffset: 980;
+    }
+}
