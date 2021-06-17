@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from '../views/home';
 import Register from '../views/registration';
 import Login from '../views/login';
+import CompleteProfile from '../views/complete-profile';
 
 function Body() {
     return (
@@ -17,6 +18,9 @@ function Body() {
                 </Route>
                 <Route path='/login' exact>
                     <Login />
+                </Route>
+                <Route path='/complete-user-profile' exact>
+                    <CompleteProfile />
                 </Route>
             </Switch>
         </div>

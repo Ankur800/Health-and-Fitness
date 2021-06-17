@@ -103,7 +103,7 @@ const Header = () => {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
-                position='fixed'
+                position='static'
             >
                 <Toolbar>
                     <IconButton

@@ -1,8 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import Alert from '../../components/alert';
 import './styles.css';
 
 const Login = () => {
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    });
+    const [alert, setAlert] = useState(false);
+    const [message, setMessage] = useState('');
+
     useEffect(() => {
         const inputs = document.querySelectorAll('.input');
 
@@ -24,8 +32,43 @@ const Login = () => {
         });
     }, []);
 
+    useEffect(() => {
+        setAlert(false);
+    }, [user]);
+
+    const handleChange = (event) => {
+        setUser({
+            ...user,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (user.email === '') {
+            setAlert(true);
+            setMessage("Email can't be empty!");
+            return;
+        }
+        if (user.password === '') {
+            setAlert(true);
+            setMessage("Password can't be empty!");
+            return;
+        }
+
+        if (!alert && user.email !== '' && user.password !== '') {
+            console.log(user);
+            // API CALL
+        }
+    };
+
     return (
         <div>
+            {alert ? (
+                <Alert state={alert} message={message} severity='error' />
+            ) : null}
+
             <img className='wave' src='images/wave.png' alt='background-svg' />
             <div className='container'>
                 <div className='img'>
@@ -41,7 +84,13 @@ const Login = () => {
                             </div>
                             <div className='div'>
                                 <h5>Email</h5>
-                                <input type='text' className='input' />
+                                <input
+                                    name='email'
+                                    type='text'
+                                    className='input'
+                                    value={user.email}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </div>
                         <div className='input-div pass'>
@@ -50,13 +99,24 @@ const Login = () => {
                             </div>
                             <div className='div'>
                                 <h5>Password</h5>
-                                <input type='password' className='input' />
+                                <input
+                                    name='password'
+                                    type='password'
+                                    className='input'
+                                    value={user.password}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </div>
                         {
                             //<a href='#'>Forgot Password?</a>
                         }
-                        <input type='submit' className='btn' value='Login' />
+                        <input
+                            type='button'
+                            className='btn'
+                            value='Login'
+                            onClick={handleSubmit}
+                        />
                     </form>
                 </div>
             </div>
