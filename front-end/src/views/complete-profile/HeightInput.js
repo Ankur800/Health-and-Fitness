@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-
-import Alert from '../../components/alert';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
 
 const HeightInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [height, setHeight] = React.useState('');
+    const [height, setHeight] = useState('');
 
     useEffect(() => {
         //console.log('height: ' + height);
         setAnswer(height);
-    }, [height]);
+    }, [height, setAnswer]);
 
     const handleChange = (event) => {
         setHeight(event.target.value);

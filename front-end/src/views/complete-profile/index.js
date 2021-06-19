@@ -304,6 +304,9 @@ const CompleteProfile = () => {
             case 6:
                 setAnswers({ ...answers, pledge: answer });
                 break;
+            default:
+                setAlert(true);
+                break;
         }
 
         if (activeStep === 6) {

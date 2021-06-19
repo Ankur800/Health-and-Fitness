@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 const AgeInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [age, setAge] = useState('');
 
     useEffect(() => {
         //console.log('age:' + age);
         setAnswer(age);
-    }, [age]);
+    }, [age, setAnswer]);
 
     const handleChange = (event) => {
         setAge(event.target.value);

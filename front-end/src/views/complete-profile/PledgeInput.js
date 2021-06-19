@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,12 +34,12 @@ const useStyles = makeStyles((theme) => ({
 
 const PledgeInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [value, setValue] = React.useState('');
+    const [value, setValue] = useState('');
 
     useEffect(() => {
         //console.log('pledge: ' + value);
         setAnswer(value);
-    }, [value]);
+    }, [value, setAnswer]);
 
     const handleChange = (event) => {
         setValue(event.target.value);
