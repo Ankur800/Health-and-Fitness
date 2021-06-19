@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const User = require('../../models/user');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -25,7 +25,6 @@ router.get('/', auth, async (req, res) => {
 // @access      Public
 
 router.post('/', async (req, res) => {
-    const errors = [];
     const { email, password } = req.body;
 
     try {

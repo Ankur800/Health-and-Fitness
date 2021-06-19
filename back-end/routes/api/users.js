@@ -4,14 +4,13 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const User = require('../../models/user');
+const User = require('../../models/User');
 
 // @route       POST api/users
 // @des         Register User
 // @access      Public
 
 router.post('/', async (req, res) => {
-    const errors = [];
     // We are validating in front-end, so let's confirm for now that
     // we will get all the required data
 
