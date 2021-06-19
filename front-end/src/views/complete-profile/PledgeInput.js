@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-
-import Alert from '../../components/alert';
 import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: '50ch',
+        },
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -25,23 +27,23 @@ const useStyles = makeStyles((theme) => ({
         width: '300px',
     },
     rightContent: {
-        marginTop: theme.spacing(5),
+        marginTop: theme.spacing(0),
         marginLeft: theme.spacing(10),
         minWidth: 170,
     },
 }));
 
-const HeightInput = ({ setAnswer }) => {
+const PledgeInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [height, setHeight] = React.useState('');
+    const [value, setValue] = React.useState('');
 
     useEffect(() => {
-        //console.log('height: ' + height);
-        setAnswer(height);
-    }, [height]);
+        //console.log('pledge: ' + value);
+        setAnswer(value);
+    }, [value]);
 
     const handleChange = (event) => {
-        setHeight(event.target.value);
+        setValue(event.target.value);
     };
 
     return (
@@ -50,7 +52,7 @@ const HeightInput = ({ setAnswer }) => {
                 <Grid className={classes.leftGrid} item xs={12} sm={6}>
                     <img
                         className={classes.img}
-                        src='images/height.svg'
+                        src='images/pledge.svg'
                         alt='gender-svg'
                     />
                 </Grid>
@@ -61,10 +63,14 @@ const HeightInput = ({ setAnswer }) => {
                         autoComplete='off'
                     >
                         <TextField
-                            name='height'
-                            id='standard-basic'
-                            label='Enter Height in centimetres'
-                            value={height}
+                            name='pledge'
+                            id='outlined-textarea'
+                            label='Your Pledge'
+                            placeholder='Write any Motivational Pledge for you'
+                            multiline
+                            rows={8}
+                            variant='outlined'
+                            value={value}
                             onChange={handleChange}
                         />
                     </form>
@@ -74,4 +80,4 @@ const HeightInput = ({ setAnswer }) => {
     );
 };
 
-export default HeightInput;
+export default PledgeInput;

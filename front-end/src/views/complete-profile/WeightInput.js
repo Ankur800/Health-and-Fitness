@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
     rightGrid: {
         textAlign: 'left',
+        display: 'flex',
     },
     img: {
         marginRight: theme.spacing(10),
@@ -27,21 +25,21 @@ const useStyles = makeStyles((theme) => ({
     rightContent: {
         marginTop: theme.spacing(5),
         marginLeft: theme.spacing(10),
-        minWidth: 160,
+        minWidth: 170,
     },
 }));
 
-const AgeInput = ({ setAnswer }) => {
+const WeightInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [weight, setWeight] = React.useState('');
 
     useEffect(() => {
-        //console.log('age:' + age);
-        setAnswer(age);
-    }, [age]);
+        //console.log('weight: ' + weight);
+        setAnswer(weight);
+    }, [weight]);
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setWeight(event.target.value);
     };
 
     return (
@@ -50,34 +48,28 @@ const AgeInput = ({ setAnswer }) => {
                 <Grid className={classes.leftGrid} item xs={12} sm={6}>
                     <img
                         className={classes.img}
-                        src='images/age.svg'
+                        src='images/weight.svg'
                         alt='gender-svg'
                     />
                 </Grid>
                 <Grid className={classes.rightGrid} item xs={12} sm={6}>
-                    <FormControl
+                    <form
                         className={classes.rightContent}
-                        component='fieldset'
+                        noValidate
+                        autoComplete='off'
                     >
-                        <InputLabel id='demo-simple-select-label'>
-                            Age
-                        </InputLabel>
-                        <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
-                            value={age}
+                        <TextField
+                            name='weight'
+                            id='standard-basic'
+                            label='Enter Weight in kilograms'
+                            value={weight}
                             onChange={handleChange}
-                        >
-                            <MenuItem value={1}>Less than 18</MenuItem>
-                            <MenuItem value={2}>Between 18 to 45</MenuItem>
-                            <MenuItem value={3}>Between 45 to 65</MenuItem>
-                            <MenuItem value={4}>More than 65</MenuItem>
-                        </Select>
-                    </FormControl>
+                        />
+                    </form>
                 </Grid>
             </Grid>
         </div>
     );
 };
 
-export default AgeInput;
+export default WeightInput;

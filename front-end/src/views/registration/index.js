@@ -12,7 +12,7 @@ const Register = () => {
         password2: '',
     });
     const [alert, setAlert] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('Some Error Occured!');
 
     useEffect(() => {
         const inputs = document.querySelectorAll('.input');

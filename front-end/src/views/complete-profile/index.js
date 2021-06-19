@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -18,32 +18,14 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import GoalIcon from '@material-ui/icons/DirectionsRun';
 import PledgeIcon from '@material-ui/icons/RecordVoiceOver';
 
+import Alert from '../../components/alert';
 import AgeInput from './AgeInput';
 import GenderInput from './GenderInput';
 import HeightInput from './HeightInput';
-
-const QontoConnector = withStyles({
-    alternativeLabel: {
-        top: 10,
-        left: 'calc(-50% + 16px)',
-        right: 'calc(50% + 16px)',
-    },
-    active: {
-        '& $line': {
-            borderColor: '#784af4',
-        },
-    },
-    completed: {
-        '& $line': {
-            borderColor: '#784af4',
-        },
-    },
-    line: {
-        borderColor: '#eaeaf0',
-        borderTopWidth: 3,
-        borderRadius: 1,
-    },
-})(StepConnector);
+import WeightInput from './WeightInput';
+import FitnessLevelInput from './FitnessLevelInput';
+import FitnessGoalInput from './FitnessGoalInput';
+import PledgeInput from './PledgeInput';
 
 const useQontoStepIconStyles = makeStyles({
     root: {
@@ -212,7 +194,7 @@ function getSteps() {
         'Enter your weight',
         'Tell us about your current fitness level',
         'What is your fitness goal?',
-        'Any Pledge?',
+        'Write something which motivates you or you can simply write your pledge here',
     ];
 }
 
@@ -231,7 +213,7 @@ function getStepContent(step) {
         case 5:
             return 'What is your fitness goal?';
         case 6:
-            return 'Any Pledge?';
+            return 'Write something which motivates you or you can simply write your pledge here';
         default:
             return 'Unknown step';
     }
@@ -239,17 +221,111 @@ function getStepContent(step) {
 
 const CompleteProfile = () => {
     const classes = useStyles();
+    const [alert, setAlert] = useState(false);
+    const [message, setMessage] = useState('Some Error Occured!');
     const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
+    const [answers, setAnswers] = useState({
+        age: null,
+        gender: null,
+        height: null,
+        weight: null,
+        currentFitness: null,
+        fitnessGoal: null,
+        pledge: null,
+    });
+    const [answer, setAnswer] = useState('');
+
+    useEffect(() => {
+        //console.log(answer);
+        setAlert(false);
+    }, [answer]);
+
+    useEffect(() => {
+        console.log(answers);
+    }, [answers]);
 
     const handleNext = () => {
+        // VALIDATION
+        if (activeStep === 0) {
+            if (answer === '') {
+                setAlert(true);
+                setMessage('Invalid Age');
+                return;
+            }
+        } else if (activeStep === 2) {
+            if (
+                answer === '' ||
+                parseInt(answer) <= 120 ||
+                parseInt(answer) >= 250
+            ) {
+                setAlert(true);
+                setMessage('Invalid Height');
+                return;
+            }
+        } else if (activeStep === 3) {
+            if (
+                answer === '' ||
+                parseInt(answer) <= 20 ||
+                parseInt(answer) >= 500
+            ) {
+                setAlert(true);
+                setMessage('Invalid Weight');
+                return;
+            }
+        } else if (activeStep === 6) {
+            if (answer === '') {
+                setAlert(true);
+                setMessage('Please write something!');
+                return;
+            }
+        }
+
+        //SAVING DATA INTO MAIN OBJECT
+        switch (activeStep) {
+            case 0:
+                setAnswers({ ...answers, age: answer });
+                break;
+            case 1:
+                setAnswers({ ...answers, gender: answer });
+                break;
+            case 2:
+                setAnswers({ ...answers, height: answer });
+                break;
+            case 3:
+                setAnswers({ ...answers, weight: answer });
+                break;
+            case 4:
+                setAnswers({ ...answers, currentFitness: answer });
+                break;
+            case 5:
+                setAnswers({ ...answers, fitnessGoal: answer });
+                break;
+            case 6:
+                setAnswers({ ...answers, pledge: answer });
+                break;
+        }
+
+        if (activeStep === 6) {
+            // CALL API HERE
+            console.log('Call API');
+        }
+
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
     const handleBack = () => {
+        // We want to show prevously Input data
+        if (activeStep - 1 === 0) {
+            if (answers.age !== null) {
+                setAnswer(answers.age);
+            }
+        }
+
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
+    // We do not need this often
     const handleReset = () => {
         setActiveStep(0);
     };
@@ -269,6 +345,11 @@ const CompleteProfile = () => {
                     </Step>
                 ))}
             </Stepper>
+
+            {alert ? (
+                <Alert state={alert} message={message} severity='error' />
+            ) : null}
+
             <div>
                 {activeStep === steps.length ? (
                     <div>
@@ -289,11 +370,19 @@ const CompleteProfile = () => {
                         </Typography>
 
                         {activeStep === 0 ? (
-                            <AgeInput />
+                            <AgeInput setAnswer={setAnswer} />
                         ) : activeStep === 1 ? (
-                            <GenderInput />
+                            <GenderInput setAnswer={setAnswer} />
                         ) : activeStep === 2 ? (
-                            <HeightInput />
+                            <HeightInput setAnswer={setAnswer} />
+                        ) : activeStep === 3 ? (
+                            <WeightInput setAnswer={setAnswer} />
+                        ) : activeStep === 4 ? (
+                            <FitnessLevelInput setAnswer={setAnswer} />
+                        ) : activeStep === 5 ? (
+                            <FitnessGoalInput setAnswer={setAnswer} />
+                        ) : activeStep === 6 ? (
+                            <PledgeInput setAnswer={setAnswer} />
                         ) : null}
 
                         <div className={classes.btn}>

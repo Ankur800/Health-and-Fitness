@@ -28,13 +28,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const GenderInput = ({ setAnswer }) => {
+const FitnessLevelInput = ({ setAnswer }) => {
     const classes = useStyles();
-
-    const [value, setValue] = useState('female');
+    const [value, setValue] = useState('low');
 
     useEffect(() => {
-        //console.log('gender: ' + value);
+        //console.log('fitness level: ' + value);
         setAnswer(value);
     }, [value]);
 
@@ -48,7 +47,7 @@ const GenderInput = ({ setAnswer }) => {
                 <Grid className={classes.leftGrid} item xs={12} sm={6}>
                     <img
                         className={classes.img}
-                        src='images/gender.svg'
+                        src='images/fitness-level.svg'
                         alt='gender-svg'
                     />
                 </Grid>
@@ -58,25 +57,25 @@ const GenderInput = ({ setAnswer }) => {
                         component='fieldset'
                     >
                         <RadioGroup
-                            aria-label='gender'
-                            name='gender1'
+                            aria-label='fitness'
+                            name='fitness'
                             value={value}
                             onChange={handleChange}
                         >
                             <FormControlLabel
-                                value='female'
+                                value='low'
                                 control={<Radio />}
-                                label='Female'
+                                label='Low'
                             />
                             <FormControlLabel
-                                value='male'
+                                value='medium'
                                 control={<Radio />}
-                                label='Male'
+                                label='Medium'
                             />
                             <FormControlLabel
-                                value='other'
+                                value='high'
                                 control={<Radio />}
-                                label='Other'
+                                label='High'
                             />
                         </RadioGroup>
                     </FormControl>
@@ -86,4 +85,4 @@ const GenderInput = ({ setAnswer }) => {
     );
 };
 
-export default GenderInput;
+export default FitnessLevelInput;
