@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
                 .json({ errors: [{ msg: 'User already exists' }] });
         }
 
-        // TODO: Change for other data
         user = new User({
             name,
             email,

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Alert from '../../components/alert';
 import './styles.css';
@@ -43,7 +44,7 @@ const Login = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (user.email === '') {
@@ -57,9 +58,34 @@ const Login = () => {
             return;
         }
 
-        if (!alert && user.email !== '' && user.password !== '') {
-            console.log(user);
+        if (!alert) {
+            //console.log(user);
             // API CALL
+            const data = {
+                email: user.email,
+                password: user.password,
+            };
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            try {
+                const res = await axios.post(
+                    'http://localhost:5000/api/auth',
+                    data,
+                    config
+                );
+                if (res) {
+                    localStorage.setItem('token', res.data.token);
+                } else {
+                    console.log('Server Error');
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
         }
     };
 

@@ -10,8 +10,9 @@ const User = require('../../models/User');
 // @access      Private
 router.get('/me', auth, async (req, res) => {
     try {
+        // TODO: FIX USER NAME
         const profile = await Profile.findOne({ user: req.user.id }).populate(
-            'user',
+            'users',
             ['name']
         );
 

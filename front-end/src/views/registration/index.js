@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import validator from 'validator';
+import axios from 'axios';
 
 import Alert from '../../components/alert';
 import '../login/styles.css';
@@ -46,7 +47,7 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (user.name === '') {
@@ -80,9 +81,35 @@ const Register = () => {
             return;
         }
 
-        if (!alert && user.email !== '' && user.password !== '') {
-            console.log(user);
+        if (!alert) {
+            //console.log(user);
             // API CALL
+            const data = {
+                name: user.name,
+                email: user.email,
+                password: user.password1,
+            };
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            try {
+                const result = await axios.post(
+                    'http://localhost:5000/api/users',
+                    data,
+                    config
+                );
+                if (result) {
+                    localStorage.setItem('token', result.data.token);
+                } else {
+                    console.log('Server Error');
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
         }
     };
 
