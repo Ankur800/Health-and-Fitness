@@ -1,5 +1,7 @@
 import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -9,46 +11,35 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
+        margin: 'auto',
+        marginTop: theme.spacing(2),
+        width: '60%',
         '& > * + *': {
             marginTop: theme.spacing(2),
         },
     },
 }));
 
-const AlertBar = ({ state, message, severity }) => {
+const AlertBar = ({ alerts }) => {
     const classes = useStyles();
-    // const [open, setOpen] = React.useState(state);
-
-    // const handleClick = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = (event, reason) => {
-    //     if (reason === 'clickaway') {
-    //         return;
-    //     }
-
-    //     setOpen(false);
-    // };
-
-    const handleClose = () => {
-        //dummy
-    };
 
     return (
-        <div className={classes.root}>
-            <Snackbar
-                open={state}
-                autoHideDuration={6000}
-                onClose={handleClose}
-            >
-                <Alert onClose={handleClose} severity={severity}>
-                    {message}
-                </Alert>
-            </Snackbar>
-        </div>
+        alerts !== null &&
+        alerts.length > 0 &&
+        alerts.map((alert) => (
+            <div key={alert.id} className={classes.root}>
+                <Alert severity={alert.alertType}>{alert.msg}</Alert>
+            </div>
+        ))
     );
 };
 
-export default AlertBar;
+AlertBar.propTypes = {
+    alerts: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+    alerts: state.alert,
+});
+
+export default connect(mapStateToProps)(AlertBar);

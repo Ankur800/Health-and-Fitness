@@ -16,6 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
@@ -82,9 +83,19 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
+    name: {
+        fontSize: theme.spacing(2.5),
+        fontWeight: 500,
+        marginRight: theme.spacing(4),
+        letterSpacing: 1,
+    },
+    buttons: {
+        color: '#fff',
+        fontSize: theme.spacing(2),
+    },
 }));
 
-const Header = () => {
+const Navbar = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -143,8 +154,12 @@ const Header = () => {
                             fill='#fff'
                         />
                     </svg>
-
-                    <Button color='inherit'>Login</Button>
+                    <Link to='/login'>
+                        <Button className={classes.buttons}>Login</Button>
+                    </Link>
+                    <Link to='/register'>
+                        <Button className={classes.buttons}>Register</Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -207,4 +222,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default Navbar;

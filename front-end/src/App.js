@@ -1,19 +1,32 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Landing from './components/layout/Landing';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import Alert from './components/alert';
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 import './styles.css';
-import { Layout } from './layout';
 
-function App() {
+const App = () => {
     return (
-        <div>
-            <CssBaseline />
+        <Provider store={store}>
             <Router>
-                <Layout />
+                <Fragment>
+                    <Navbar />
+                    <Route exact path='/' component={Landing} />
+                    <Alert />
+                    <Switch>
+                        <Route exact path='/register' component={Register} />
+                        <Route exact path='/login' component={Login} />
+                    </Switch>
+                </Fragment>
             </Router>
-        </div>
+        </Provider>
     );
-}
+};
 
 export default App;
