@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
+import { Redirect } from 'react-router-dom';
 
-import Alert from '../alert';
 import './styles.css';
 
-const Login = () => {
+const Login = ({ setAlert, login, isAuthenticated }) => {
     const [user, setUser] = useState({
         email: '',
         password: '',
     });
-    const [alert, setAlert] = useState(false);
-    const [message, setMessage] = useState('Some Error Occured!');
 
     useEffect(() => {
         const inputs = document.querySelectorAll('.input');
@@ -32,10 +34,6 @@ const Login = () => {
         });
     }, []);
 
-    useEffect(() => {
-        setAlert(false);
-    }, [user]);
-
     const handleChange = (event) => {
         setUser({
             ...user,
@@ -47,28 +45,22 @@ const Login = () => {
         event.preventDefault();
 
         if (user.email === '') {
-            setAlert(true);
-            setMessage("Email can't be empty!");
-            return;
-        }
-        if (user.password === '') {
-            setAlert(true);
-            setMessage("Password can't be empty!");
-            return;
-        }
-
-        if (!alert) {
-            //console.log(user);
-            // API CALL
+            setAlert("Email can't be empty!", 'error');
+        } else if (user.password === '') {
+            setAlert("Password can't be empty!", 'error');
+        } else {
+            //HIT API
+            login(user.email, user.password);
         }
     };
 
+    // Redirect if already logged in
+    if (isAuthenticated) {
+        return <Redirect to='/dashboard' />;
+    }
+
     return (
         <div>
-            {alert ? (
-                <Alert state={alert} message={message} severity='error' />
-            ) : null}
-
             <img className='wave' src='images/wave.png' alt='background-svg' />
             <div className='container'>
                 <div className='img'>
@@ -124,4 +116,14 @@ const Login = () => {
     );
 };
 
-export default Login;
+Login.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, login })(Login);
