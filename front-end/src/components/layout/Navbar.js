@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,8 +15,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
 import './styles.css';
 
@@ -95,10 +98,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Navbar = () => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
+    const authLinks = (
+        <Fragment>
+            <Link to='/'>
+                <Button
+                    endIcon={<ExitToAppIcon />}
+                    onClick={logout}
+                    className={classes.buttons}
+                >
+                    Logout
+                </Button>
+            </Link>
+        </Fragment>
+    );
+    const guestLinks = (
+        <Fragment>
+            <Link to='/login'>
+                <Button className={classes.buttons}>Login</Button>
+            </Link>
+            <Link to='/register'>
+                <Button className={classes.buttons}>Register</Button>
+            </Link>
+        </Fragment>
+    );
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -154,12 +181,11 @@ const Navbar = () => {
                             fill='#fff'
                         />
                     </svg>
-                    <Link to='/login'>
-                        <Button className={classes.buttons}>Login</Button>
-                    </Link>
-                    <Link to='/register'>
-                        <Button className={classes.buttons}>Register</Button>
-                    </Link>
+                    {!loading && (
+                        <Fragment>
+                            {isAuthenticated ? authLinks : guestLinks}
+                        </Fragment>
+                    )}
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -185,41 +211,42 @@ const Navbar = () => {
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map(
-                        (text, index) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon style={{ color: '#38d39f' }}>
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
-                                </ListItemIcon>
-                                <ListItemText
-                                    style={{ color: '#38d39f' }}
-                                    primary={text}
-                                />
-                            </ListItem>
-                        )
-                    )}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
+                    <Link to='/dashboard'>
+                        <ListItem button key='Dashboard'>
                             <ListItemIcon style={{ color: '#38d39f' }}>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                <InboxIcon />
                             </ListItemIcon>
                             <ListItemText
                                 style={{ color: '#38d39f' }}
-                                primary={text}
+                                primary='Dashboard'
                             />
                         </ListItem>
-                    ))}
+                    </Link>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem button key='Contact us'>
+                        <ListItemIcon style={{ color: '#38d39f' }}>
+                            <InboxIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            style={{ color: '#38d39f' }}
+                            primary='Contact us'
+                        />
+                    </ListItem>
                 </List>
             </Drawer>
         </div>
     );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+    logout: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
