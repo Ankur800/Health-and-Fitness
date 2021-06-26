@@ -27,6 +27,9 @@ import FitnessLevelInput from './FitnessLevelInput';
 import FitnessGoalInput from './FitnessGoalInput';
 import PledgeInput from './PledgeInput';
 
+import { setAlert } from '../../actions/alert';
+import { connect } from 'react-redux';
+
 const useQontoStepIconStyles = makeStyles({
     root: {
         color: '#eaeaf0',
@@ -188,11 +191,11 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
     return [
-        'Select your age',
+        'Enter your age',
         'Select your gender',
         'Enter your height',
         'Enter your weight',
-        'Tell us about your current fitness level',
+        'Choose which of the following best describe your general level of activity throughout the day',
         'What is your fitness goal?',
         'Write something which motivates you or you can simply write your pledge here',
     ];
@@ -201,7 +204,7 @@ function getSteps() {
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return 'Select your age';
+            return 'Enter your age';
         case 1:
             return 'Select your gender';
         case 2:
@@ -209,7 +212,7 @@ function getStepContent(step) {
         case 3:
             return 'Enter your weight';
         case 4:
-            return 'Tell us about your current fitness level';
+            return 'Choose which of the following best describe your general level of activity throughout the day';
         case 5:
             return 'What is your fitness goal?';
         case 6:
@@ -219,10 +222,9 @@ function getStepContent(step) {
     }
 }
 
-const CompleteProfile = () => {
+const CompleteProfile = ({ setAlert }) => {
     const classes = useStyles();
-    const [alert, setAlert] = useState(false);
-    const [message, setMessage] = useState('Some Error Occured!');
+
     const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
     const [answers, setAnswers] = useState({
@@ -230,16 +232,11 @@ const CompleteProfile = () => {
         gender: null,
         height: null,
         weight: null,
-        currentFitness: null,
+        activityLevel: null,
         fitnessGoal: null,
         pledge: null,
     });
     const [answer, setAnswer] = useState('');
-
-    useEffect(() => {
-        //console.log(answer);
-        setAlert(false);
-    }, [answer]);
 
     useEffect(() => {
         console.log(answers);
@@ -248,9 +245,12 @@ const CompleteProfile = () => {
     const handleNext = () => {
         // VALIDATION
         if (activeStep === 0) {
-            if (answer === '') {
-                setAlert(true);
-                setMessage('Invalid Age');
+            if (
+                answer === '' ||
+                parseInt(answer) <= 10 ||
+                parseInt(answer) >= 90
+            ) {
+                setAlert('Invalid Age', 'error');
                 return;
             }
         } else if (activeStep === 2) {
@@ -259,8 +259,7 @@ const CompleteProfile = () => {
                 parseInt(answer) <= 120 ||
                 parseInt(answer) >= 250
             ) {
-                setAlert(true);
-                setMessage('Invalid Height');
+                setAlert('Invalid Height', 'error');
                 return;
             }
         } else if (activeStep === 3) {
@@ -269,14 +268,17 @@ const CompleteProfile = () => {
                 parseInt(answer) <= 20 ||
                 parseInt(answer) >= 500
             ) {
-                setAlert(true);
-                setMessage('Invalid Weight');
+                setAlert('Invalid Weight', 'error');
+                return;
+            }
+        } else if (activeStep === 4) {
+            if (answer === '') {
+                setAlert('Please select an option', 'error');
                 return;
             }
         } else if (activeStep === 6) {
             if (answer === '') {
-                setAlert(true);
-                setMessage('Please write something!');
+                setAlert('Please write something!', 'error');
                 return;
             }
         }
@@ -349,10 +351,6 @@ const CompleteProfile = () => {
                 ))}
             </Stepper>
 
-            {alert ? (
-                <Alert state={alert} message={message} severity='error' />
-            ) : null}
-
             <div>
                 {activeStep === steps.length ? (
                     <div>
@@ -368,7 +366,10 @@ const CompleteProfile = () => {
                     </div>
                 ) : (
                     <div>
-                        <Typography className={classes.instructions}>
+                        <Typography
+                            variant='h5'
+                            className={classes.instructions}
+                        >
                             {getStepContent(activeStep)}
                         </Typography>
 
@@ -414,4 +415,4 @@ const CompleteProfile = () => {
     );
 };
 
-export default CompleteProfile;
+export default connect(null, { setAlert })(CompleteProfile);

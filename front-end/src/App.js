@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/alert';
 import Dashboard from './components/dashboard/Dashboard';
+import CompleteProfile from './components/complete-profile';
 import PrivateRoute from './components/routing/PrivateRoute';
 // Redux
 import { Provider } from 'react-redux';
@@ -38,6 +39,11 @@ const App = () => {
                             exact
                             path='/dashboard'
                             component={Dashboard}
+                        />
+                        <PrivateRoute
+                            exact
+                            path='/complete-user-profile'
+                            component={CompleteProfile}
                         />
                     </Switch>
                 </Fragment>

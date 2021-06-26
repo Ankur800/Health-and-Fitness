@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FitnessLevelInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [value, setValue] = useState('low');
+    const [value, setValue] = useState('');
 
     useEffect(() => {
         //console.log('fitness level: ' + value);
@@ -62,19 +62,29 @@ const FitnessLevelInput = ({ setAnswer }) => {
                             onChange={handleChange}
                         >
                             <FormControlLabel
-                                value='low'
+                                value='verylight'
                                 control={<Radio />}
-                                label='Low'
+                                label='Very Light (or sedentary)'
                             />
                             <FormControlLabel
-                                value='medium'
+                                value='light'
                                 control={<Radio />}
-                                label='Medium'
+                                label='Light'
                             />
                             <FormControlLabel
-                                value='high'
+                                value='moderate'
                                 control={<Radio />}
-                                label='High'
+                                label='Moderate'
+                            />
+                            <FormControlLabel
+                                value='veryactive'
+                                control={<Radio />}
+                                label='Very Active'
+                            />
+                            <FormControlLabel
+                                value='extreme'
+                                control={<Radio />}
+                                label='Extreme'
                             />
                         </RadioGroup>
                     </FormControl>

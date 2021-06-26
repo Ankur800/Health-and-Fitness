@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const authLinks = (
         <Fragment>
@@ -211,14 +211,28 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 </div>
                 <Divider />
                 <List>
-                    <Link to='/dashboard'>
-                        <ListItem button key='Dashboard'>
+                    <Link onClick={handleDrawerClose} to='/dashboard'>
+                        <ListItem button>
                             <ListItemIcon style={{ color: '#38d39f' }}>
                                 <InboxIcon />
                             </ListItemIcon>
                             <ListItemText
                                 style={{ color: '#38d39f' }}
                                 primary='Dashboard'
+                            />
+                        </ListItem>
+                    </Link>
+                    <Link
+                        onClick={handleDrawerClose}
+                        to='/complete-user-profile'
+                    >
+                        <ListItem button>
+                            <ListItemIcon style={{ color: '#38d39f' }}>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText
+                                style={{ color: '#38d39f' }}
+                                primary='Update Profile'
                             />
                         </ListItem>
                     </Link>
