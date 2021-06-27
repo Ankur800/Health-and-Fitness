@@ -5,11 +5,15 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
     },
+    goal: {
+        type: String,
+        required: true,
+    },
     age: {
         type: String,
         required: true,
     },
-    gender: {
+    sex: {
         type: String,
         required: true,
     },
@@ -21,15 +25,11 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    currentFitness: {
+    activityLevel: {
         type: String,
         required: true,
     },
-    fitnessGoal: {
-        type: String,
-        required: true,
-    },
-    pledge: {
+    weeklyGoal: {
         type: String,
         required: true,
     },

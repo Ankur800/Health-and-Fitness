@@ -1,16 +1,19 @@
 import React, { Fragment, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 
 import TodayProgress from './TodayProgress';
 import TodayGoal from './TodayGoal';
 import WeeklyProgress from './WeeklyProgress';
 import CalorieCount from './CalorieCount';
 import DailyTaskProgress from './DailyTaskProgress';
+import NoProfileWelcome from './NoProfileWelcome';
+import Spinner from '../layout/Spinner';
+
+import CompleteProfile from '../complete-profile';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,16 +37,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dashboard = ({ getCurrentProfile, auth, profile }) => {
+const Dashboard = ({
+    getCurrentProfile,
+    auth: { user },
+    profile: { profile, loading },
+}) => {
     const classes = useStyles();
 
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+    }, [getCurrentProfile]);
 
-    console.log(profile);
+    //console.log(profile);
 
-    return (
+    return loading && profile === null ? (
+        <div className={classes.root}>
+            <Spinner />
+        </div>
+    ) : profile !== null ? (
         <div className={classes.root}>
             <Grid className={classes.topGrid} container spacing={3}>
                 <Grid item xs={12} md={3} sm={6}>
@@ -67,10 +78,13 @@ const Dashboard = ({ getCurrentProfile, auth, profile }) => {
                     <img
                         className={classes.dashboardImage}
                         src='./images/dashboard.svg'
+                        alt='dashboard-img'
                     />
                 </Grid>
             </Grid>
         </div>
+    ) : (
+        <CompleteProfile />
     );
 };
 

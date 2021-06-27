@@ -28,6 +28,8 @@ import WeeklyGoal from './WeeklyGoal';
 
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
+import { Link, withRouter } from 'react-router-dom';
 
 const useQontoStepIconStyles = makeStyles({
     root: {
@@ -221,24 +223,27 @@ function getStepContent(step) {
     }
 }
 
-const CompleteProfile = ({ setAlert }) => {
+const CompleteProfile = ({ setAlert, createProfile, history }) => {
     const classes = useStyles();
 
     const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
     const [answers, setAnswers] = useState({
+        goal: null,
         age: null,
-        gender: null,
+        sex: null,
         height: null,
         weight: null,
         activityLevel: null,
-        fitnessGoal: null,
-        pledge: null,
+        weeklyGoal: null,
     });
     const [answer, setAnswer] = useState('');
 
     useEffect(() => {
         console.log(answers);
+        if (activeStep === 7) {
+            createProfile(answers, history);
+        }
     }, [answers]);
 
     const handleNext = () => {
@@ -279,11 +284,14 @@ const CompleteProfile = ({ setAlert }) => {
 
         //SAVING DATA INTO MAIN OBJECT
         switch (activeStep) {
+            case 0:
+                setAnswers({ ...answers, goal: answer });
+                break;
             case 1:
                 setAnswers({ ...answers, age: answer });
                 break;
             case 2:
-                setAnswers({ ...answers, gender: answer });
+                setAnswers({ ...answers, sex: answer });
                 break;
             case 3:
                 setAnswers({ ...answers, height: answer });
@@ -292,10 +300,10 @@ const CompleteProfile = ({ setAlert }) => {
                 setAnswers({ ...answers, weight: answer });
                 break;
             case 5:
-                setAnswers({ ...answers, currentFitness: answer });
+                setAnswers({ ...answers, activityLevel: answer });
                 break;
             case 6:
-                setAnswers({ ...answers, fitnessGoal: answer });
+                setAnswers({ ...answers, weeklyGoal: answer });
                 break;
             default:
                 // TODO Remove it
@@ -304,6 +312,9 @@ const CompleteProfile = ({ setAlert }) => {
 
         if (activeStep === 6) {
             // CALL API HERE
+
+            //createProfile(answers, history);
+
             console.log('Call API');
         }
 
@@ -406,4 +417,10 @@ const CompleteProfile = ({ setAlert }) => {
     );
 };
 
-export default connect(null, { setAlert })(CompleteProfile);
+CompleteProfile.propTypes = {
+    createProfile: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, createProfile })(
+    withRouter(CompleteProfile)
+);

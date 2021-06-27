@@ -33,19 +33,19 @@ router.get('/me', auth, async (req, res) => {
 // @desc        Create or Update a user's profile
 // @access      Private
 router.post('/', auth, async (req, res) => {
-    const { age, gender, height, weight, currentFitness, fitnessGoal, pledge } =
+    const { goal, age, sex, height, weight, activityLevel, weeklyGoal } =
         req.body;
 
     // Build Profile Object
     const profileFields = {};
     profileFields.user = req.user.id;
+    if (goal) profileFields.goal = goal;
     if (age) profileFields.age = age;
-    if (gender) profileFields.gender = gender;
+    if (sex) profileFields.sex = sex;
     if (height) profileFields.height = height;
     if (weight) profileFields.weight = weight;
-    if (currentFitness) profileFields.currentFitness = currentFitness;
-    if (fitnessGoal) profileFields.fitnessGoal = fitnessGoal;
-    if (pledge) profileFields.pledge = pledge;
+    if (activityLevel) profileFields.activityLevel = activityLevel;
+    if (weeklyGoal) profileFields.weeklyGoal = weeklyGoal;
 
     try {
         let profile = await Profile.findOne({ user: req.user.id });

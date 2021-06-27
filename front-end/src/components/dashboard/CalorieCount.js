@@ -1,11 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Card,
-    CardContent,
-    Grid,
-    Typography,
-} from '@material-ui/core';
+import { Avatar, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
