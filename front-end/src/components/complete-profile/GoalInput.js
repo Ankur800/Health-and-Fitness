@@ -27,12 +27,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FitnessGoalInput = ({ setAnswer }) => {
+const GenderInput = ({ setAnswer }) => {
     const classes = useStyles();
-    const [value, setValue] = useState('trim');
+
+    const [value, setValue] = useState('lose');
 
     useEffect(() => {
-        //console.log('fitness goal: ' + value);
+        //console.log('gender: ' + value);
         setAnswer(value);
     }, [value, setAnswer]);
 
@@ -46,7 +47,7 @@ const FitnessGoalInput = ({ setAnswer }) => {
                 <Grid className={classes.leftGrid} item xs={12} sm={6}>
                     <img
                         className={classes.img}
-                        src='images/fitness-goal.svg'
+                        src='images/goal.svg'
                         alt='gender-svg'
                     />
                 </Grid>
@@ -56,25 +57,25 @@ const FitnessGoalInput = ({ setAnswer }) => {
                         component='fieldset'
                     >
                         <RadioGroup
-                            aria-label='fitness'
-                            name='fitness'
+                            aria-label='gender'
+                            name='gender1'
                             value={value}
                             onChange={handleChange}
                         >
                             <FormControlLabel
-                                value='trim'
+                                value='lose'
                                 control={<Radio />}
-                                label='Get Trim(Lose Weight)'
+                                label='Lose Weight'
                             />
                             <FormControlLabel
-                                value='muscle'
+                                value='maintain'
                                 control={<Radio />}
-                                label='Gain Muscle'
+                                label='Maintain Weight'
                             />
                             <FormControlLabel
-                                value='sports'
+                                value='gain'
                                 control={<Radio />}
-                                label='Increase Sports Performance'
+                                label='Gain Weight'
                             />
                         </RadioGroup>
                     </FormControl>
@@ -84,4 +85,4 @@ const FitnessGoalInput = ({ setAnswer }) => {
     );
 };
 
-export default FitnessGoalInput;
+export default GenderInput;

@@ -10,22 +10,21 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import EventIcon from '@material-ui/icons/Event';
 import GenderIcon from '@material-ui/icons/Wc';
 import HeightIcon from '@material-ui/icons/Height';
 import WeightIcon from '@material-ui/icons/Accessibility';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import GoalIcon from '@material-ui/icons/DirectionsRun';
-import PledgeIcon from '@material-ui/icons/RecordVoiceOver';
 
-import Alert from '../../components/alert';
+import GoalInput from './GoalInput';
 import AgeInput from './AgeInput';
 import GenderInput from './GenderInput';
 import HeightInput from './HeightInput';
 import WeightInput from './WeightInput';
-import FitnessLevelInput from './FitnessLevelInput';
-import FitnessGoalInput from './FitnessGoalInput';
-import PledgeInput from './PledgeInput';
+import ActivityLevel from './ActivityLevel';
+import WeeklyGoal from './WeeklyGoal';
 
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
@@ -135,13 +134,13 @@ const ColorlibStepIcon = (props) => {
     const { active, completed } = props;
 
     const icons = {
-        1: <EventIcon />,
-        2: <GenderIcon />,
-        3: <HeightIcon />,
-        4: <WeightIcon />,
-        5: <FitnessCenterIcon />,
-        6: <GoalIcon />,
-        7: <PledgeIcon />,
+        1: <AssignmentIcon />,
+        2: <EventIcon />,
+        3: <GenderIcon />,
+        4: <HeightIcon />,
+        5: <WeightIcon />,
+        6: <FitnessCenterIcon />,
+        7: <GoalIcon />,
     };
 
     return (
@@ -191,32 +190,32 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
     return [
-        'Enter your age',
-        'Select your gender',
-        'Enter your height',
-        'Enter your weight',
-        'Choose which of the following best describe your general level of activity throughout the day',
-        'What is your fitness goal?',
-        'Write something which motivates you or you can simply write your pledge here',
+        'Goal',
+        'Age',
+        'Sex',
+        'Height',
+        'Weight',
+        'Activity Level',
+        'Weekly Goal',
     ];
 }
 
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return 'Enter your age';
+            return 'What is your goal?';
         case 1:
-            return 'Select your gender';
+            return 'Enter your age';
         case 2:
-            return 'Enter your height';
+            return 'Select your gender';
         case 3:
-            return 'Enter your weight';
+            return 'Enter your height';
         case 4:
-            return 'Choose which of the following best describe your general level of activity throughout the day';
+            return 'Enter your weight';
         case 5:
-            return 'What is your fitness goal?';
+            return 'Choose which of the following best describe your general level of activity throughout the day';
         case 6:
-            return 'Write something which motivates you or you can simply write your pledge here';
+            return 'What is your weekly goal?';
         default:
             return 'Unknown step';
     }
@@ -244,7 +243,7 @@ const CompleteProfile = ({ setAlert }) => {
 
     const handleNext = () => {
         // VALIDATION
-        if (activeStep === 0) {
+        if (activeStep === 1) {
             if (
                 answer === '' ||
                 parseInt(answer) <= 10 ||
@@ -253,7 +252,7 @@ const CompleteProfile = ({ setAlert }) => {
                 setAlert('Invalid Age', 'error');
                 return;
             }
-        } else if (activeStep === 2) {
+        } else if (activeStep === 3) {
             if (
                 answer === '' ||
                 parseInt(answer) <= 120 ||
@@ -262,7 +261,7 @@ const CompleteProfile = ({ setAlert }) => {
                 setAlert('Invalid Height', 'error');
                 return;
             }
-        } else if (activeStep === 3) {
+        } else if (activeStep === 4) {
             if (
                 answer === '' ||
                 parseInt(answer) <= 20 ||
@@ -271,43 +270,35 @@ const CompleteProfile = ({ setAlert }) => {
                 setAlert('Invalid Weight', 'error');
                 return;
             }
-        } else if (activeStep === 4) {
+        } else if (activeStep === 5) {
             if (answer === '') {
                 setAlert('Please select an option', 'error');
-                return;
-            }
-        } else if (activeStep === 6) {
-            if (answer === '') {
-                setAlert('Please write something!', 'error');
                 return;
             }
         }
 
         //SAVING DATA INTO MAIN OBJECT
         switch (activeStep) {
-            case 0:
+            case 1:
                 setAnswers({ ...answers, age: answer });
                 break;
-            case 1:
+            case 2:
                 setAnswers({ ...answers, gender: answer });
                 break;
-            case 2:
+            case 3:
                 setAnswers({ ...answers, height: answer });
                 break;
-            case 3:
+            case 4:
                 setAnswers({ ...answers, weight: answer });
                 break;
-            case 4:
+            case 5:
                 setAnswers({ ...answers, currentFitness: answer });
                 break;
-            case 5:
+            case 6:
                 setAnswers({ ...answers, fitnessGoal: answer });
                 break;
-            case 6:
-                setAnswers({ ...answers, pledge: answer });
-                break;
             default:
-                setAlert(true);
+                // TODO Remove it
                 break;
         }
 
@@ -374,19 +365,19 @@ const CompleteProfile = ({ setAlert }) => {
                         </Typography>
 
                         {activeStep === 0 ? (
-                            <AgeInput setAnswer={setAnswer} />
+                            <GoalInput setAnswer={setAnswer} />
                         ) : activeStep === 1 ? (
-                            <GenderInput setAnswer={setAnswer} />
+                            <AgeInput setAnswer={setAnswer} />
                         ) : activeStep === 2 ? (
-                            <HeightInput setAnswer={setAnswer} />
+                            <GenderInput setAnswer={setAnswer} />
                         ) : activeStep === 3 ? (
-                            <WeightInput setAnswer={setAnswer} />
+                            <HeightInput setAnswer={setAnswer} />
                         ) : activeStep === 4 ? (
-                            <FitnessLevelInput setAnswer={setAnswer} />
+                            <WeightInput setAnswer={setAnswer} />
                         ) : activeStep === 5 ? (
-                            <FitnessGoalInput setAnswer={setAnswer} />
+                            <ActivityLevel setAnswer={setAnswer} />
                         ) : activeStep === 6 ? (
-                            <PledgeInput setAnswer={setAnswer} />
+                            <WeeklyGoal setAnswer={setAnswer} />
                         ) : null}
 
                         <div className={classes.btn}>

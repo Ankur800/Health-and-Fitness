@@ -6,7 +6,6 @@ import {
     Grid,
     Typography,
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';

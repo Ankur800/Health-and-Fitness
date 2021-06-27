@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const FitnessLevelInput = ({ setAnswer }) => {
+const WeeklyGoal = ({ setAnswer }) => {
     const classes = useStyles();
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState('0.5');
 
     useEffect(() => {
-        //console.log('fitness level: ' + value);
+        //console.log('fitness goal: ' + value);
         setAnswer(value);
     }, [value, setAnswer]);
 
@@ -46,7 +46,7 @@ const FitnessLevelInput = ({ setAnswer }) => {
                 <Grid className={classes.leftGrid} item xs={12} sm={6}>
                     <img
                         className={classes.img}
-                        src='images/fitness-level.svg'
+                        src='images/fitness-goal.svg'
                         alt='gender-svg'
                     />
                 </Grid>
@@ -62,29 +62,24 @@ const FitnessLevelInput = ({ setAnswer }) => {
                             onChange={handleChange}
                         >
                             <FormControlLabel
-                                value='verylight'
+                                value='0.25'
                                 control={<Radio />}
-                                label='Very Light (or sedentary)'
+                                label='Lose 0.25 kg per week'
                             />
                             <FormControlLabel
-                                value='light'
+                                value='0.5'
                                 control={<Radio />}
-                                label='Light'
+                                label='Lose 0.5 kg per week (Recommended)'
                             />
                             <FormControlLabel
-                                value='moderate'
+                                value='0.75'
                                 control={<Radio />}
-                                label='Moderate'
+                                label='Lose 0.75 kg per week'
                             />
                             <FormControlLabel
-                                value='veryactive'
+                                value='1'
                                 control={<Radio />}
-                                label='Very Active'
-                            />
-                            <FormControlLabel
-                                value='extreme'
-                                control={<Radio />}
-                                label='Extreme'
+                                label='Lose 1 kg per week'
                             />
                         </RadioGroup>
                     </FormControl>
@@ -94,4 +89,4 @@ const FitnessLevelInput = ({ setAnswer }) => {
     );
 };
 
-export default FitnessLevelInput;
+export default WeeklyGoal;
