@@ -1,19 +1,20 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
-
-import TodayProgress from './TodayProgress';
-import TodayGoal from './TodayGoal';
-import WeeklyProgress from './WeeklyProgress';
-import CalorieCount from './CalorieCount';
-import DailyTaskProgress from './DailyTaskProgress';
-import NoProfileWelcome from './NoProfileWelcome';
-import Spinner from '../layout/Spinner';
+import { getCurrentRecord } from '../../actions/record';
 
 import CompleteProfile from '../complete-profile';
+
+import BurningGoal from './BurningGoal';
+import ConsumptionGoal from './ConsumptionGoal';
+import DonutView from './DonutView';
+import ConsumptionProgress from './ConsumptionProgress';
+import BurningProgress from './BurningProgress';
+
+import Spinner from '../layout/Spinner';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,17 +39,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = ({
+    getCurrentRecord,
     getCurrentProfile,
     auth: { user },
     profile: { profile, loading },
+    record: { record },
 }) => {
     const classes = useStyles();
 
     useEffect(() => {
         getCurrentProfile();
-    }, [getCurrentProfile]);
+        getCurrentRecord();
+    }, [getCurrentProfile, getCurrentRecord]);
 
-    //console.log(profile);
+    console.log(record);
 
     return loading && profile === null ? (
         <div className={classes.root}>
@@ -58,21 +62,30 @@ const Dashboard = ({
         <div className={classes.root}>
             <Grid className={classes.topGrid} container spacing={3}>
                 <Grid item xs={12} md={3} sm={6}>
-                    <TodayGoal />
+                    <ConsumptionGoal goal={record.dailyCalorieIntakeGoal} />
                 </Grid>
                 <Grid item xs={12} md={3} sm={6}>
-                    <TodayProgress />
+                    <BurningGoal goal={record.dailyCalorieBurnGoal} />
                 </Grid>
                 <Grid item xs={12} md={3} sm={6}>
-                    <WeeklyProgress />
+                    <ConsumptionProgress
+                        goal={record.dailyCalorieIntakeGoal}
+                        intaken={record.todayCalorieTaken}
+                    />
                 </Grid>
                 <Grid item xs={12} md={3} sm={6}>
-                    <CalorieCount />
+                    <BurningProgress
+                        goal={record.dailyCalorieBurnGoal}
+                        burnt={record.todayCalorieBurnt}
+                    />
                 </Grid>
             </Grid>
             <Grid className={classes.topGrid} container spacing={3}>
                 <Grid item xs={12} sm={6}>
-                    <DailyTaskProgress />
+                    <DonutView
+                        intaken={record.todayCalorieTaken}
+                        burnt={record.todayCalorieBurnt}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <img
@@ -89,6 +102,7 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
+    getCurrentRecord: PropTypes.func.isRequired,
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
@@ -97,6 +111,10 @@ Dashboard.propTypes = {
 const mapStateToProps = (state) => ({
     auth: state.auth,
     profile: state.profile,
+    record: state.record,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, {
+    getCurrentProfile,
+    getCurrentRecord,
+})(Dashboard);

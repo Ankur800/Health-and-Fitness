@@ -29,7 +29,8 @@ import WeeklyGoal from './WeeklyGoal';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
-import { Link, withRouter } from 'react-router-dom';
+import { createRecord } from '../../actions/record';
+import { withRouter } from 'react-router-dom';
 
 const useQontoStepIconStyles = makeStyles({
     root: {
@@ -223,7 +224,12 @@ function getStepContent(step) {
     }
 }
 
-const CompleteProfile = ({ setAlert, createProfile, history }) => {
+const CompleteProfile = ({
+    setAlert,
+    createRecord,
+    createProfile,
+    history,
+}) => {
     const classes = useStyles();
 
     const [activeStep, setActiveStep] = useState(0);
@@ -240,8 +246,9 @@ const CompleteProfile = ({ setAlert, createProfile, history }) => {
     const [answer, setAnswer] = useState('');
 
     useEffect(() => {
-        console.log(answers);
+        //console.log(answers);
         if (activeStep === 7) {
+            createRecord(answers);
             createProfile(answers, history);
         }
     }, [answers]);
@@ -308,14 +315,6 @@ const CompleteProfile = ({ setAlert, createProfile, history }) => {
             default:
                 // TODO Remove it
                 break;
-        }
-
-        if (activeStep === 6) {
-            // CALL API HERE
-
-            //createProfile(answers, history);
-
-            console.log('Call API');
         }
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -419,8 +418,9 @@ const CompleteProfile = ({ setAlert, createProfile, history }) => {
 
 CompleteProfile.propTypes = {
     createProfile: PropTypes.func.isRequired,
+    createRecord: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert, createProfile })(
+export default connect(null, { setAlert, createProfile, createRecord })(
     withRouter(CompleteProfile)
 );

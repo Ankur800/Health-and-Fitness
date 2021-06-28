@@ -7,7 +7,7 @@ import {
     LinearProgress,
     Typography,
 } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,8 +20,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const WeeklyProgress = () => {
+const BurningProgress = ({ goal, burnt }) => {
     const classes = useStyles();
+
+    const percentage = 100 * (parseFloat(burnt) / parseFloat(goal));
 
     return (
         <Card className={classes.card}>
@@ -37,16 +39,16 @@ const WeeklyProgress = () => {
                             gutterBottom
                             variant='h6'
                         >
-                            WEEKLY PROGRESS
+                            BURN PROGRESS
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            62.5%
+                            {parseInt(percentage)}% ({burnt} cal)
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Avatar
                             style={{
-                                backgroundColor: orange[600],
+                                backgroundColor: red[600],
                                 height: 56,
                                 width: 56,
                             }}
@@ -58,7 +60,7 @@ const WeeklyProgress = () => {
                 <Box style={{ pt: 3 }}>
                     <LinearProgress
                         className={classes.progress}
-                        value={62.5}
+                        value={percentage}
                         variant='determinate'
                     />
                 </Box>
@@ -67,4 +69,4 @@ const WeeklyProgress = () => {
     );
 };
 
-export default WeeklyProgress;
+export default BurningProgress;

@@ -7,22 +7,22 @@ const Record = require('../../models/Record');
 // @route       GET api/record
 // @desc        Get current user's record
 // @access      Private
-// router.get('/', auth, async (req, res) => {
-//     try {
-//         const record = await Record.findOne({ user: req.user.id });
+router.get('/', auth, async (req, res) => {
+    try {
+        const record = await Record.findOne({ user: req.user.id });
 
-//         if (!record) {
-//             return res
-//                 .status(400)
-//                 .json({ msg: 'There is no record for this user.' });
-//         }
+        if (!record) {
+            return res
+                .status(400)
+                .json({ msg: 'There is no record for this user.' });
+        }
 
-//         res.json(record);
-//     } catch (err) {
-//         console.log(err.message);
-//         res.status(500).send('Server Error');
-//     }
-// });
+        res.json(record);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route       Post api/record
 // @desc        Create a user's record

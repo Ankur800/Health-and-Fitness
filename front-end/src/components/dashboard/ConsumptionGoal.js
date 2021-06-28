@@ -1,14 +1,6 @@
-import {
-    Avatar,
-    Box,
-    Card,
-    CardContent,
-    Grid,
-    LinearProgress,
-    Typography,
-} from '@material-ui/core';
-import { indigo } from '@material-ui/core/colors';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import { Avatar, Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
+import MoneyIcon from '@material-ui/icons/Money';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,8 +9,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TodayProgress = (props) => {
+const ConsumptionGoal = ({ goal }) => {
     const classes = useStyles();
+
+    goal = parseInt(goal);
 
     return (
         <Card className={classes.card}>
@@ -34,30 +28,27 @@ const TodayProgress = (props) => {
                             gutterBottom
                             variant='h6'
                         >
-                            TODAY'S PROGRESS
+                            CONSUMPTION GOAL
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            75.5%
+                            {goal} cal
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Avatar
                             style={{
-                                backgroundColor: indigo[600],
+                                backgroundColor: red[600],
                                 height: 56,
                                 width: 56,
                             }}
                         >
-                            <InsertChartIcon />
+                            <MoneyIcon />
                         </Avatar>
                     </Grid>
                 </Grid>
-                <Box style={{ pt: 3 }}>
-                    <LinearProgress value={75.5} variant='determinate' />
-                </Box>
             </CardContent>
         </Card>
     );
 };
 
-export default TodayProgress;
+export default ConsumptionGoal;

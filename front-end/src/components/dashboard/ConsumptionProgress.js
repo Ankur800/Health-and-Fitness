@@ -1,6 +1,14 @@
-import { Avatar, Card, CardContent, Grid, Typography } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import MoneyIcon from '@material-ui/icons/Money';
+import {
+    Avatar,
+    Box,
+    Card,
+    CardContent,
+    Grid,
+    LinearProgress,
+    Typography,
+} from '@material-ui/core';
+import { orange } from '@material-ui/core/colors';
+import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,8 +17,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TodayGoal = () => {
+const TodayProgress = ({ goal, intaken }) => {
     const classes = useStyles();
+
+    const percentage = 100 * (intaken / goal);
 
     return (
         <Card className={classes.card}>
@@ -26,27 +36,30 @@ const TodayGoal = () => {
                             gutterBottom
                             variant='h6'
                         >
-                            TODAY'S GOAL
+                            INTAKE PROGRESS
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            1500 kcal
+                            {parseInt(percentage)}% ({intaken} cal)
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Avatar
                             style={{
-                                backgroundColor: red[600],
+                                backgroundColor: orange[600],
                                 height: 56,
                                 width: 56,
                             }}
                         >
-                            <MoneyIcon />
+                            <InsertChartIcon />
                         </Avatar>
                     </Grid>
                 </Grid>
+                <Box style={{ pt: 3 }}>
+                    <LinearProgress value={percentage} variant='determinate' />
+                </Box>
             </CardContent>
         </Card>
     );
 };
 
-export default TodayGoal;
+export default TodayProgress;

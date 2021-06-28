@@ -23,8 +23,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DailyTaskProgress = () => {
+const DonutView = ({ intaken, burnt }) => {
     const classes = useStyles();
+
+    intaken = parseInt(intaken);
+    burnt = parseInt(burnt);
 
     const data = {
         datasets: [
@@ -137,4 +140,4 @@ const DailyTaskProgress = () => {
     );
 };
 
-export default DailyTaskProgress;
+export default DonutView;

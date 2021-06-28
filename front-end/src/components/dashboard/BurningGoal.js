@@ -1,6 +1,6 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { red } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,8 +9,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CalorieCount = () => {
+const BurningGoal = ({ goal }) => {
     const classes = useStyles();
+
+    goal = parseInt(goal);
 
     return (
         <Card className={classes.card}>
@@ -26,16 +28,16 @@ const CalorieCount = () => {
                             gutterBottom
                             variant='h6'
                         >
-                            CALORIE COUNT
+                            BURNING GOAL
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            1276 kcal
+                            {goal} cal
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Avatar
                             style={{
-                                backgroundColor: red[600],
+                                backgroundColor: indigo[600],
                                 height: 56,
                                 width: 56,
                             }}
@@ -49,4 +51,4 @@ const CalorieCount = () => {
     );
 };
 
-export default CalorieCount;
+export default BurningGoal;

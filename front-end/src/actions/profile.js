@@ -7,6 +7,7 @@ export const getCurrentProfile = () => async (dispatch) => {
     try {
         const res = await axios.get('http://localhost:5000/api/profile/me');
         //console.log(res.data);
+
         dispatch({
             type: GET_PROFILE,
             payload: res.data,
@@ -22,7 +23,7 @@ export const getCurrentProfile = () => async (dispatch) => {
     }
 };
 
-// Create of Update profile
+// Create or Update profile
 export const createProfile =
     (formData, history, edit = false) =>
     async (dispatch) => {
