@@ -25,6 +25,8 @@ router.get('/', auth, async (req, res) => {
 // @access      Public
 
 router.post('/', async (req, res) => {
+    const errors = [];
+
     const { email, password } = req.body;
 
     try {

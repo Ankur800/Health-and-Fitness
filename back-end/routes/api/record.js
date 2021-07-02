@@ -47,24 +47,33 @@ router.post('/', auth, async (req, res) => {
         recordFields.activityFactor = '1.9';
     }
 
-    // convert height in inches
-    height = 0.393701 * parseFloat(height);
+    // // convert height in inches
+    // height = 0.393701 * parseFloat(height);
 
-    // convert weight in pounds
-    weight = 2.20462 * parseFloat(weight);
+    // // convert weight in pounds
+    // weight = 2.20462 * parseFloat(weight);
 
     if (sex === 'female') {
         recordFields.BMR =
-            655 +
-            4.35 * parseFloat(weight) +
-            4.7 * parseFloat(height) -
-            4.7 * parseFloat(age);
+            10 * parseInt(weight) +
+            6.25 * parseInt(height) -
+            5 * parseInt(age) -
+            161;
+
+        // 655 +
+        // 4.35 * parseFloat(weight) +
+        // 4.7 * parseFloat(height) -
+        // 4.7 * parseFloat(age);
     } else if (sex === 'male') {
         recordFields.BMR =
-            66 +
-            6.23 * parseFloat(weight) +
-            12.7 * parseFloat(height) -
-            6.76 * parseFloat(age);
+            10 * parseInt(weight) +
+            6.25 * parseInt(height) -
+            5 * parseInt(age) +
+            5;
+        // 66 +
+        // 6.23 * parseFloat(weight) +
+        // 12.7 * parseFloat(height) -
+        // 6.76 * parseFloat(age);
     }
 
     recordFields.dailyCalorieIntakeGoal =

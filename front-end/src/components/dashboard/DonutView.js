@@ -8,9 +8,9 @@ import {
     Typography,
     colors,
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
+
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,27 +23,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const DonutView = ({ intaken, burnt }) => {
+const DonutView = ({ goal, burnt }) => {
     const classes = useStyles();
 
-    intaken = parseInt(intaken);
+    goal = parseInt(goal);
     burnt = parseInt(burnt);
 
     const data = {
         datasets: [
             {
-                data: [63, 15, 22],
-                backgroundColor: [
-                    colors.indigo[500],
-                    colors.red[600],
-                    colors.orange[600],
-                ],
+                data: [goal, burnt],
+                backgroundColor: [colors.indigo[500], colors.orange[600]],
                 borderWidth: 8,
                 borderColor: colors.common.white,
                 hoverBorderColor: colors.common.white,
             },
         ],
-        labels: ['Desktop', 'Tablet', 'Mobile'],
+        labels: ["Today's Goal", "Today's Burnt"],
     };
 
     const options = {
@@ -70,28 +66,22 @@ const DonutView = ({ intaken, burnt }) => {
 
     const devices = [
         {
-            title: 'Desktop',
-            value: 63,
-            icon: LaptopMacIcon,
+            title: "Today's Goal",
+            value: goal,
+            icon: AssignmentIcon,
             color: colors.indigo[500],
         },
         {
-            title: 'Tablet',
-            value: 15,
-            icon: TabletIcon,
-            color: colors.red[600],
-        },
-        {
-            title: 'Mobile',
-            value: 23,
-            icon: PhoneIcon,
+            title: "Today's Burnt",
+            value: burnt,
+            icon: InsertChartIcon,
             color: colors.orange[600],
         },
     ];
 
     return (
         <Card>
-            <CardHeader title='Traffic by Device' />
+            <CardHeader title="Today's Progress" />
             <Divider />
             <CardContent>
                 <Box
@@ -130,7 +120,7 @@ const DonutView = ({ intaken, burnt }) => {
                                 style={{ color }}
                                 variant='h5'
                             >
-                                {value}%
+                                {value} cal
                             </Typography>
                         </Box>
                     ))}

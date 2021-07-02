@@ -31,6 +31,7 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 import { createRecord } from '../../actions/record';
 import { withRouter } from 'react-router-dom';
+import { parse } from 'uuid';
 
 const useQontoStepIconStyles = makeStyles({
     root: {
@@ -251,7 +252,7 @@ const CompleteProfile = ({
             createRecord(answers);
             createProfile(answers, history);
         }
-    }, [answers]);
+    }, [answers, createProfile, createRecord, activeStep, history]);
 
     const handleNext = () => {
         // VALIDATION
@@ -259,7 +260,8 @@ const CompleteProfile = ({
             if (
                 answer === '' ||
                 parseInt(answer) <= 10 ||
-                parseInt(answer) >= 90
+                parseInt(answer) >= 90 ||
+                isNaN(parseInt(answer))
             ) {
                 setAlert('Invalid Age', 'error');
                 return;
@@ -268,7 +270,8 @@ const CompleteProfile = ({
             if (
                 answer === '' ||
                 parseInt(answer) <= 120 ||
-                parseInt(answer) >= 250
+                parseInt(answer) >= 250 ||
+                isNaN(parseInt(answer))
             ) {
                 setAlert('Invalid Height', 'error');
                 return;
@@ -277,7 +280,8 @@ const CompleteProfile = ({
             if (
                 answer === '' ||
                 parseInt(answer) <= 20 ||
-                parseInt(answer) >= 500
+                parseInt(answer) >= 500 ||
+                isNaN(parseInt(answer))
             ) {
                 setAlert('Invalid Weight', 'error');
                 return;

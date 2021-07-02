@@ -52,13 +52,13 @@ const Dashboard = ({
         getCurrentRecord();
     }, [getCurrentProfile, getCurrentRecord]);
 
-    console.log(record);
+    //console.log(record);
 
     return loading && profile === null ? (
         <div className={classes.root}>
             <Spinner />
         </div>
-    ) : profile !== null ? (
+    ) : profile !== null && record !== null ? (
         <div className={classes.root}>
             <Grid className={classes.topGrid} container spacing={3}>
                 <Grid item xs={12} md={3} sm={6}>
@@ -83,7 +83,7 @@ const Dashboard = ({
             <Grid className={classes.topGrid} container spacing={3}>
                 <Grid item xs={12} sm={6}>
                     <DonutView
-                        intaken={record.todayCalorieTaken}
+                        goal={record.dailyCalorieBurnGoal}
                         burnt={record.todayCalorieBurnt}
                     />
                 </Grid>

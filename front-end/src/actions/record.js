@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { GET_RECORD, RECORD_ERROR, CLEAR_RECORD } from './types';
+import { GET_RECORD, RECORD_ERROR } from './types';
 
 // Get current user's record
 export const getCurrentRecord = () => async (dispatch) => {
     try {
         const res = await axios.get('http://localhost:5000/api/record');
 
-        console.log(res.data);
+        //console.log(res.data);
 
         dispatch({
             type: GET_RECORD,
@@ -38,7 +38,7 @@ export const createRecord = (userDate) => async (dispatch) => {
             config
         );
 
-        console.log(res.data);
+        //console.log(res.data);
 
         dispatch({
             type: GET_RECORD,

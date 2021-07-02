@@ -103,12 +103,25 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
+    const logoutEvent = () => {
+        logout();
+        handleDrawerClose();
+    };
+
     const authLinks = (
         <Fragment>
             <Link to='/'>
                 <Button
                     endIcon={<ExitToAppIcon />}
-                    onClick={logout}
+                    onClick={logoutEvent}
                     className={classes.buttons}
                 >
                     Logout
@@ -118,22 +131,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     );
     const guestLinks = (
         <Fragment>
-            <Link to='/login'>
+            <Link onClick={handleDrawerClose} to='/login'>
                 <Button className={classes.buttons}>Login</Button>
             </Link>
-            <Link to='/register'>
+            <Link onClick={handleDrawerClose} to='/register'>
                 <Button className={classes.buttons}>Register</Button>
             </Link>
         </Fragment>
     );
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
         <div className={classes.root}>

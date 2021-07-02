@@ -8,6 +8,7 @@ import Alert from './components/alert';
 import Dashboard from './components/dashboard/Dashboard';
 import CompleteProfile from './components/complete-profile';
 import PrivateRoute from './components/routing/PrivateRoute';
+import NotFound from './components/layout/NotFound';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -45,6 +46,7 @@ const App = () => {
                             path='/complete-user-profile'
                             component={CompleteProfile}
                         />
+                        {/* <Route component={NotFound} /> */}
                     </Switch>
                 </Fragment>
             </Router>
