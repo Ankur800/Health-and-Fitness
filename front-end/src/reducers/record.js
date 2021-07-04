@@ -1,4 +1,9 @@
-import { GET_RECORD, RECORD_ERROR, CLEAR_RECORD } from '../actions/types';
+import {
+    GET_RECORD,
+    RECORD_ERROR,
+    CLEAR_RECORD,
+    ADD_CALORIES_INTAKE,
+} from '../actions/types';
 
 const initialState = {
     record: null,
@@ -11,6 +16,7 @@ export default function (state = initialState, action) {
 
     switch (type) {
         case GET_RECORD:
+        case ADD_CALORIES_INTAKE:
             return {
                 ...state,
                 record: payload,

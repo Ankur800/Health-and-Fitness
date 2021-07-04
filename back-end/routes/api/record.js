@@ -124,4 +124,66 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
+// @route       Post api/record/add-food-intaken
+// @desc        Adds calories intaken by user
+// @access      Private
+router.post('/add-food-intaken', auth, async (req, res) => {
+    let { diet, energy } = req.body;
+
+    try {
+        let record = await Record.findOne({ user: req.user.id });
+
+        if (!record) {
+            res.status(500).send('Server Error');
+        } else {
+            const todayIntaken = record.todayCalorieTaken;
+
+            record = await Record.findOneAndUpdate(
+                { user: req.user.id },
+                {
+                    todayCalorieTaken:
+                        parseFloat(energy) + parseFloat(todayIntaken),
+                },
+                { new: true }
+            );
+        }
+
+        res.json(record);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route       Post api/record/add-calories-burnt
+// @desc        Adds calories burnt by user
+// @access      Private
+router.post('/add-calories-burnt', auth, async (req, res) => {
+    let { exercise, energy } = req.body;
+
+    try {
+        let record = await Record.findOne({ user: req.user.id });
+
+        if (!record) {
+            res.status(500).send('Server Error');
+        } else {
+            const todayBurnt = record.todayCalorieBurnt;
+
+            record = await Record.findOneAndUpdate(
+                { user: req.user.id },
+                {
+                    todayCalorieBurnt:
+                        parseFloat(todayBurnt) + parseFloat(energy),
+                },
+                { new: true }
+            );
+        }
+
+        res.json(record);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;

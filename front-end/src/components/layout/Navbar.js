@@ -140,6 +140,88 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Fragment>
     );
 
+    const authDrawer = (
+        <Fragment>
+            <Link onClick={handleDrawerClose} to='/dashboard'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Dashboard'
+                    />
+                </ListItem>
+            </Link>
+            <Link onClick={handleDrawerClose} to='/add-calories-intake'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Add Food Intaken'
+                    />
+                </ListItem>
+            </Link>
+            <Link onClick={handleDrawerClose} to='/complete-user-profile'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Update Profile'
+                    />
+                </ListItem>
+            </Link>
+        </Fragment>
+    );
+
+    const guestDrawer = (
+        <Fragment>
+            <Link onClick={handleDrawerClose} to='/register'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Sign Up'
+                    />
+                </ListItem>
+            </Link>
+            <Link onClick={handleDrawerClose} to='/login'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Sign In'
+                    />
+                </ListItem>
+            </Link>
+        </Fragment>
+    );
+
+    const contactUs = (
+        <Fragment>
+            <Divider />
+            <List>
+                <ListItem button key='Contact us'>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Contact us'
+                    />
+                </ListItem>
+            </List>
+        </Fragment>
+    );
+
     return (
         <div className={classes.root}>
             <AppBar
@@ -216,44 +298,15 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                 </div>
                 <Divider />
                 <List>
-                    <Link onClick={handleDrawerClose} to='/dashboard'>
-                        <ListItem button>
-                            <ListItemIcon style={{ color: '#38d39f' }}>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                style={{ color: '#38d39f' }}
-                                primary='Dashboard'
-                            />
-                        </ListItem>
-                    </Link>
-                    <Link
-                        onClick={handleDrawerClose}
-                        to='/complete-user-profile'
-                    >
-                        <ListItem button>
-                            <ListItemIcon style={{ color: '#38d39f' }}>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                                style={{ color: '#38d39f' }}
-                                primary='Update Profile'
-                            />
-                        </ListItem>
-                    </Link>
+                    {!loading && (
+                        <Fragment>
+                            {isAuthenticated ? authDrawer : guestDrawer}
+                        </Fragment>
+                    )}
                 </List>
-                <Divider />
-                <List>
-                    <ListItem button key='Contact us'>
-                        <ListItemIcon style={{ color: '#38d39f' }}>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                            style={{ color: '#38d39f' }}
-                            primary='Contact us'
-                        />
-                    </ListItem>
-                </List>
+                {!loading && (
+                    <Fragment>{isAuthenticated ? contactUs : null}</Fragment>
+                )}
             </Drawer>
         </div>
     );

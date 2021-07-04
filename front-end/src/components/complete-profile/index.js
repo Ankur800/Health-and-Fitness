@@ -31,7 +31,6 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 import { createRecord } from '../../actions/record';
 import { withRouter } from 'react-router-dom';
-import { parse } from 'uuid';
 
 const useQontoStepIconStyles = makeStyles({
     root: {

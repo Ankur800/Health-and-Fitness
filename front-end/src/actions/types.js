@@ -13,3 +13,4 @@ export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const GET_RECORD = 'GET_RECORD';
 export const RECORD_ERROR = 'RECORD_ERROR';
 export const CLEAR_RECORD = 'CLEAR_RECORD';
+export const ADD_CALORIES_INTAKE = 'ADD_CALORIES_INTAKE';
