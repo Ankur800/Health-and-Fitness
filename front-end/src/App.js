@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import CompleteProfile from './components/complete-profile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CaloriesIntake from './components/calories-intake';
+import CaloriesBurnt from './components/calories-burnt';
 import NotFound from './components/layout/NotFound';
 // Redux
 import { Provider } from 'react-redux';
@@ -51,6 +52,11 @@ const App = () => {
                             exact
                             path='/add-calories-intake'
                             component={CaloriesIntake}
+                        />
+                        <PrivateRoute
+                            exact
+                            path='/add-calories-burnt'
+                            component={CaloriesBurnt}
                         />
                         {/* <Route component={NotFound} /> */}
                     </Switch>

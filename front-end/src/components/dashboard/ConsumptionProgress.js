@@ -39,7 +39,7 @@ const TodayProgress = ({ goal, intaken }) => {
                             INTAKE PROGRESS
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            {parseInt(percentage)}% ({intaken} cal)
+                            {parseInt(percentage)}% ({parseInt(intaken)} cal)
                         </Typography>
                     </Grid>
                     <Grid item>

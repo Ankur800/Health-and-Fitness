@@ -42,7 +42,7 @@ const BurningProgress = ({ goal, burnt }) => {
                             BURN PROGRESS
                         </Typography>
                         <Typography color='textPrimary' variant='h6'>
-                            {parseInt(percentage)}% ({burnt} cal)
+                            {parseInt(percentage)}% ({parseInt(burnt)} cal)
                         </Typography>
                     </Grid>
                     <Grid item>

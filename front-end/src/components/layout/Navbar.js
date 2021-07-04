@@ -164,6 +164,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
                     />
                 </ListItem>
             </Link>
+            <Link onClick={handleDrawerClose} to='/add-calories-burnt'>
+                <ListItem button>
+                    <ListItemIcon style={{ color: '#38d39f' }}>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        style={{ color: '#38d39f' }}
+                        primary='Add Calories Burnt'
+                    />
+                </ListItem>
+            </Link>
             <Link onClick={handleDrawerClose} to='/complete-user-profile'>
                 <ListItem button>
                     <ListItemIcon style={{ color: '#38d39f' }}>
