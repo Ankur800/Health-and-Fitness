@@ -3,6 +3,7 @@ import {
     RECORD_ERROR,
     CLEAR_RECORD,
     ADD_CALORIES_INTAKE,
+    ADD_CALORIES_BURNT,
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +18,7 @@ export default function (state = initialState, action) {
     switch (type) {
         case GET_RECORD:
         case ADD_CALORIES_INTAKE:
+        case ADD_CALORIES_BURNT:
             return {
                 ...state,
                 record: payload,

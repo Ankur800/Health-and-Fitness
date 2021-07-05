@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_RECORD, RECORD_ERROR, ADD_CALORIES_INTAKE } from './types';
+import {
+    GET_RECORD,
+    RECORD_ERROR,
+    ADD_CALORIES_INTAKE,
+    ADD_CALORIES_BURNT,
+} from './types';
 
 // Get current user's record
 export const getCurrentRecord = () => async (dispatch) => {
@@ -83,6 +88,38 @@ export const addCaloriesIntaken = (foodInfo, history) => async (dispatch) => {
             type: RECORD_ERROR,
             payload: {
                 msg: err.respose.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
+// Update today's calories burnt
+export const addCaloriesBurnt = (exerciseInfo, history) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const res = await axios.post(
+            'http://localhost:5000/api/record/add-calories-burnt',
+            exerciseInfo,
+            config
+        );
+
+        dispatch({
+            type: ADD_CALORIES_BURNT,
+            payload: res.data,
+        });
+
+        history.push('/dashboard');
+    } catch (err) {
+        dispatch({
+            type: RECORD_ERROR,
+            payload: {
+                msg: err.response.statusText,
                 status: err.response.status,
             },
         });

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ExerciseInput = () => {
+const ExerciseInput = ({ setExercise }) => {
     const classes = useStyles();
 
     return (
@@ -25,7 +25,7 @@ const ExerciseInput = () => {
                 id='free-solo-2-demo'
                 disableClearable
                 options={exercises.map((exercise) => exercise.exName)}
-                // onSelect={(e) => setDiet(e.target.value)}
+                onSelect={(e) => setExercise(e.target.value)}
                 renderInput={(params) => (
                     <TextField
                         {...params}
