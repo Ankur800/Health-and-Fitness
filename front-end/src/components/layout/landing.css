@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.main-container {
+    padding: 40px 80px 0 80px;
+    margin: auto;
+    font-family: 'Open sans', sans-serif;
+}
+
+h3,
+h2,
+h1 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-heading {
+    margin-top: 5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.main-description {
+    line-height: 1.5;
+    margin: auto;
+    width: 60%;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    color: #a9a9a9;
+}
+
+.get-started-btn {
+    min-width: 100vw - 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-getStarted {
+    margin-top: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color: #38d39f;
+    height: 80px;
+    width: 400px;
+    -webkit-appearance: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e5ec;
+    box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.6),
+        -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+.btn-getStarted:hover {
+    box-shadow: inset 9px 9px 16px rgb(163, 177, 198, 0.6),
+        inset -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+.mockup-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 110px;
+    margin-bottom: 110px;
+}
+
+.communities-data {
+    float: left;
+    height: 350px;
+    width: 50%;
+}
+
+.communities-data img,
+.messages-data img {
+    width: 150px;
+    height: 150px;
+}
+
+.messages-data {
+    float: left;
+    height: 350px;
+    width: 50%;
+}
+
+.communities-image {
+    margin-left: 250px;
+}
+
+.messages-image {
+    margin-left: 250px;
+}
+
+.communities-info {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-left: 210px;
+}
+
+.messages-info {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-left: 210px;
+}
+
+.communities-des {
+    font-size: 1.5rem;
+    color: #a6a9b6;
+    font-weight: 700;
+    margin-left: 210px;
+}
+
+.messages-des {
+    font-size: 1.5rem;
+    color: #a6a9b6;
+    font-weight: 700;
+    margin-left: 210px;
+}
+
+.top-curve-white {
+    margin-left: -80px;
+    display: block;
+}
+
+.grow-together {
+    background-color: hsl(207, 100%, 98%);
+    height: 480px;
+    margin-left: -80px;
+    margin-right: -80px;
+}
+
+.grow-together-left {
+    width: 50%;
+    padding-left: 120px;
+    padding-right: 110px;
+}
+
+.grow-together-left p {
+    color: #a6a9b6;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.grow-together-head {
+    font-size: 40px;
+}
+
+.grow-together-right {
+    padding-left: 40px;
+}
+
+.grow-together-image {
+    width: 80%;
+    height: auto;
+}
+
+.flowing-conversation {
+    height: 480px;
+    margin-left: -80px;
+    margin-right: -80px;
+    padding-top: 50px;
+}
+
+.flowing-conversation-left {
+    width: 50%;
+    padding-left: 120px;
+}
+
+.flowing-conversation-image {
+    width: 85%;
+    height: auto;
+}
+
+.flowing-conversation-right {
+    padding-left: 40px;
+    padding-right: 140px;
+}
+
+.flowing-conversation-right p {
+    color: #a6a9b6;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.flowing-conversation-head {
+    font-size: 40px;
+}
+
+.down-main-heading {
+    margin-bottom: -20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    font-weight: 1000;
+    margin-bottom: 50px;
+}
+
+.useless {
+    min-height: 100px;
+}

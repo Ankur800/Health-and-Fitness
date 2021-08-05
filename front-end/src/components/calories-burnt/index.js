@@ -66,9 +66,9 @@ const CaloriesBurnt = ({
     const [time, setTime] = useState('');
 
     const handleSubmit = () => {
-        let energy = null;
+        let energy;
         // Validate exercise
-        exercises.map((item) => {
+        exercises.find((item) => {
             if (item.exName === exercise) {
                 const cat = getAgeCategory(profile.weight);
                 if (cat === 'I') {
@@ -83,13 +83,15 @@ const CaloriesBurnt = ({
         // Validate time
         if (isNaN(parseInt(time))) {
             setAlert('Invalid Time', 'error');
+            return;
         }
         // Check for null energy
-        if (energy === null) {
+        if (!energy) {
             setAlert(
                 "Sorry! We don't have information about this exercise, you can enter details manually",
                 'warning'
             );
+            return;
         }
         // Calculate Energy
         energy = (parseFloat(energy) / 30) * parseFloat(time);

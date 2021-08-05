@@ -43,9 +43,9 @@ const CaloriesIntake = ({ setAlert, addCaloriesIntaken, history }) => {
     const [amount, setAmount] = useState('');
 
     const handleSubmit = () => {
-        let energy = null;
+        let energy;
         // check diet and find energy if exists
-        diets.map((item) => {
+        diets.find((item) => {
             if (item.food === diet) {
                 energy = item.energy;
             }
@@ -55,8 +55,9 @@ const CaloriesIntake = ({ setAlert, addCaloriesIntaken, history }) => {
             setAlert('Invalid Amount', 'error');
             return;
         }
+
         // Check for NULL energy
-        if (energy === null) {
+        if (!energy) {
             setAlert(
                 "Sorry! We don't have information about this food, you can enter details manually",
                 'warning'

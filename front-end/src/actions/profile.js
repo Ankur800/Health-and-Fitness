@@ -1,11 +1,20 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR } from './types';
+import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR } from './types';
 
 // Get the current user's profile
 export const getCurrentProfile = () => async (dispatch) => {
     try {
-        const res = await axios.get('http://localhost:5000/api/profile/me');
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token,
+            },
+        };
+
+        const res = await axios.get(
+            'http://localhost:5000/api/profile/me',
+            config
+        );
         //console.log(res.data);
 
         dispatch({
@@ -13,6 +22,8 @@ export const getCurrentProfile = () => async (dispatch) => {
             payload: res.data,
         });
     } catch (err) {
+        dispatch({ type: CLEAR_PROFILE });
+
         dispatch({
             type: PROFILE_ERROR,
             payload: {

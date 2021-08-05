@@ -10,6 +10,7 @@ import CompleteProfile from './components/complete-profile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CaloriesIntake from './components/calories-intake';
 import CaloriesBurnt from './components/calories-burnt';
+import Footer from './components/layout/Footer';
 import NotFound from './components/layout/NotFound';
 // Redux
 import { Provider } from 'react-redux';
@@ -60,6 +61,7 @@ const App = () => {
                         />
                         {/* <Route component={NotFound} /> */}
                     </Switch>
+                    <Footer />
                 </Fragment>
             </Router>
         </Provider>

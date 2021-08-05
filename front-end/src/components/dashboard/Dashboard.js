@@ -43,7 +43,7 @@ const Dashboard = ({
     getCurrentProfile,
     auth: { user },
     profile: { profile, loading },
-    record: { record },
+    record: { record, recordLoading },
 }) => {
     const classes = useStyles();
 
@@ -54,7 +54,8 @@ const Dashboard = ({
 
     //console.log(record);
 
-    return loading && profile === null ? (
+    return (loading && profile === null) ||
+        (recordLoading && record === null) ? (
         <div className={classes.root}>
             <Spinner />
         </div>
@@ -102,10 +103,11 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
-    getCurrentRecord: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    record: PropTypes.object.isRequired,
+    getCurrentRecord: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

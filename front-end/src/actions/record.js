@@ -4,12 +4,19 @@ import {
     RECORD_ERROR,
     ADD_CALORIES_INTAKE,
     ADD_CALORIES_BURNT,
+    CLEAR_RECORD,
 } from './types';
 
 // Get current user's record
 export const getCurrentRecord = () => async (dispatch) => {
     try {
-        const res = await axios.get('http://localhost:5000/api/record');
+        const config = {
+            headers: {
+                'x-auth-token': localStorage.token,
+            },
+        };
+
+        const res = await axios.get('http://localhost:5000/api/record', config);
 
         //console.log(res.data);
 
@@ -116,6 +123,8 @@ export const addCaloriesBurnt = (exerciseInfo, history) => async (dispatch) => {
 
         history.push('/dashboard');
     } catch (err) {
+        dispatch({ type: CLEAR_RECORD });
+
         dispatch({
             type: RECORD_ERROR,
             payload: {

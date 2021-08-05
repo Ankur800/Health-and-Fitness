@@ -8,7 +8,7 @@ import {
 
 const initialState = {
     record: null,
-    loading: true,
+    recordLoading: true,
     error: {},
 };
 
@@ -22,19 +22,19 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 record: payload,
-                loading: false,
+                recordLoading: false,
             };
         case RECORD_ERROR:
             return {
                 ...state,
                 error: payload,
-                loading: false,
+                recordLoading: false,
             };
         case CLEAR_RECORD:
             return {
                 ...state,
                 record: null,
-                loading: false,
+                recordLoading: false,
             };
         default:
             return state;
