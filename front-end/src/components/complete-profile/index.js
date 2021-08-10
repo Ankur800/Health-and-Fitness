@@ -390,7 +390,10 @@ const CompleteProfile = ({
                         ) : activeStep === 5 ? (
                             <ActivityLevel setAnswer={setAnswer} />
                         ) : activeStep === 6 ? (
-                            <WeeklyGoal setAnswer={setAnswer} />
+                            <WeeklyGoal
+                                goal={answers.goal}
+                                setAnswer={setAnswer}
+                            />
                         ) : null}
 
                         <div className={classes.btn}>

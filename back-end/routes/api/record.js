@@ -93,6 +93,24 @@ router.post('/', auth, async (req, res) => {
             recordFields.dailyCalorieBurnGoal =
                 parseFloat(recordFields.dailyCalorieIntakeGoal) + 1102;
         }
+    } else if (goal === 'gain') {
+        if (weeklyGoal === '0.25') {
+            recordFields.dailyCalorieBurnGoal =
+                parseFloat(recordFields.dailyCalorieIntakeGoal) - 225.5;
+        } else if (weeklyGoal === '0.5') {
+            recordFields.dailyCalorieBurnGoal =
+                parseFloat(recordFields.dailyCalorieIntakeGoal) - 551;
+        } else if (weeklyGoal === '0.75') {
+            recordFields.dailyCalorieBurnGoal =
+                parseFloat(recordFields.dailyCalorieIntakeGoal) - 776.5;
+        } else if (weeklyGoal === '1') {
+            recordFields.dailyCalorieBurnGoal =
+                parseFloat(recordFields.dailyCalorieIntakeGoal) - 1102;
+        }
+    } else if (goal === 'maintain') {
+        recordFields.dailyCalorieBurnGoal = parseFloat(
+            recordFields.dailyCalorieIntakeGoal
+        );
     }
 
     try {

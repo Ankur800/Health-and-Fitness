@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const WeeklyGoal = ({ setAnswer }) => {
+const WeeklyGoal = ({ setAnswer, goal }) => {
     const classes = useStyles();
     const [value, setValue] = useState('0.5');
 
@@ -39,6 +39,8 @@ const WeeklyGoal = ({ setAnswer }) => {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+
+    let myGoal = goal === 'lose' ? 'Lose' : 'Gain';
 
     return (
         <div className={classes.root}>
@@ -64,22 +66,24 @@ const WeeklyGoal = ({ setAnswer }) => {
                             <FormControlLabel
                                 value='0.25'
                                 control={<Radio />}
-                                label='Lose 0.25 kg per week'
+                                label={myGoal + ' 0.25 kg per week'}
                             />
                             <FormControlLabel
                                 value='0.5'
                                 control={<Radio />}
-                                label='Lose 0.5 kg per week (Recommended)'
+                                label={
+                                    myGoal + ' 0.5 kg per week (Recommended)'
+                                }
                             />
                             <FormControlLabel
                                 value='0.75'
                                 control={<Radio />}
-                                label='Lose 0.75 kg per week'
+                                label={myGoal + ' 0.75 kg per week'}
                             />
                             <FormControlLabel
                                 value='1'
                                 control={<Radio />}
-                                label='Lose 1 kg per week'
+                                label={myGoal + ' 1 kg per week'}
                             />
                         </RadioGroup>
                     </FormControl>
