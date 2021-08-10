@@ -220,15 +220,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         <Fragment>
             <Divider />
             <List>
-                <ListItem button key='Contact us'>
-                    <ListItemIcon style={{ color: '#38d39f' }}>
-                        <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        style={{ color: '#38d39f' }}
-                        primary='Contact us'
-                    />
-                </ListItem>
+                <a onClick={handleDrawerClose} href='#footer'>
+                    <ListItem button key='Contact us'>
+                        <ListItemIcon style={{ color: '#38d39f' }}>
+                            <InboxIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            style={{ color: '#38d39f' }}
+                            primary='Contact us'
+                        />
+                    </ListItem>
+                </a>
             </List>
         </Fragment>
     );

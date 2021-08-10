@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     footer: {
+        marginTop: theme.spacing(12),
         paddingTop: theme.spacing(12),
         padding: '1vw',
         background: '#38d39f',
@@ -119,7 +120,7 @@ const Footer = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.footer}>
+        <div id='footer' className={classes.footer}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={4}>
                     <Paper className={classes.paper}>
